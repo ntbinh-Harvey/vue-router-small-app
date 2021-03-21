@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <GoBack /> -->
     <section class="destination">
       <h1>{{ destination.name }}</h1>
       <div class="destination-detail">
@@ -20,15 +21,16 @@
         >
           <router-link
             :to="{
-              name:
-                'experienceDetails, params: {experienceSlug: experience.slug}',
+              name: 'ExperienceDetails',
+              params: { experienceSlug: experience.slug },
             }"
-          ></router-link>
-          <img
-            :src="require(`@/assets/${experience.image}`)"
-            :alt="experience.name"
-          />
-          <span class="card__text">{{ experience.name }}</span>
+          >
+            <img
+              :src="require(`@/assets/${experience.image}`)"
+              :alt="experience.name"
+            />
+            <span class="card__text">{{ experience.name }}</span>
+          </router-link>
         </div>
       </div>
       <router-view :key="$route.path"></router-view>
@@ -37,9 +39,10 @@
 </template>
 <script>
 import store from "@/store.js";
+// import GoBack from '@/components/GoBack';
 export default {
-  data() {
-    return {};
+  components: {
+    // GoBack
   },
   props: {
     slug: {
