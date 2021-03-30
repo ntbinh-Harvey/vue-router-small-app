@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import store from '@/store.js';
 
 Vue.use(VueRouter);
 
@@ -65,9 +66,20 @@ const routes = [
           ),
       },
     ],
+    beforeEnter: (to, from, next) => {
+      const exist = store.destinations.find(destination => destination.slug === to.params.slug)
+      if(exist) {
+        next()
+      }
+      else {
+        next({name: "NotFound"})
+      }
+    }
   },
   {
-    path: "*",
+    path: "/404",
+    // tên path ns chung k nên để *, thay vào đó dùng tên path, vì nếu k nó sẽ gặp warning. báo là k thể thay thế 1 page với tên path có dấu hoa thị
+    alias: "*",
     name: "NotFound",
     component: () =>
       import(
